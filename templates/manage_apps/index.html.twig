@@ -1,0 +1,48 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Application index{% endblock %}
+
+{% block body %}
+    <h1>Application index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Description</th>
+                <th>CreatedAt</th>
+                <th>UpdatedAt</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for application in applications %}
+            <tr>
+                <td>{{ application.id }}</td>
+                <td>{{ application.name }}</td>
+                <td>{{ application.description }}</td>
+                <td>{{ application.createdAt ? application.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ application.updatedAt ? application.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>
+                    <a href="{{ path('manage_apps_show', {'id': application.id}) }}">show</a>
+                    <a href="{{ path('manage_apps_edit', {'id': application.id}) }}">edit</a>
+                    <a href="{{ path('manage_apps_clone', {'id': application.id}) }}">clone</a>
+                    {% if application.locked %}
+                        <a href="{{ path('manage_apps_lock', {'id': application.id, 'lock': 0}) }}">unlock</a>
+                    {% else %}
+                        <a href="{{ path('manage_apps_lock', {'id': application.id, 'lock': 1}) }}">lock</a>
+                    {% endif %}
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="6">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('manage_apps_new') }}">Create new</a>
+    <a href="{{ path('manage_apps_synchronize') }}">Synchronizer</a>
+{% endblock %}

@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Clone Application{% endblock %}
+
+{% block body %}
+    <h1>Clone Application</h1>
+
+    {{ include('manage_apps/_form.html.twig', {'button_label': 'Clone'}) }}
+
+    <a href="{{ path('manage_apps_index') }}">back to list</a>
+
+{% endblock %}

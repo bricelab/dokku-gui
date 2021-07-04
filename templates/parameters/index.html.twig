@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Parameters index{% endblock %}
+
+{% block body %}
+    <h1>Parameters index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>ConfigName</th>
+                <th>DokkuHost</th>
+                <th>DokkuConnectUser</th>
+                <th>DokkuConnectPort</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for parameter in parameters %}
+            <tr>
+                <td>{{ parameter.configName }}</td>
+                <td>{{ parameter.dokkuHost }}</td>
+                <td>{{ parameter.dokkuConnectUser }}</td>
+                <td>{{ parameter.dokkuConnectPort }}</td>
+                <td>
+                    <a href="{{ path('parameters_show', {'configName': parameter.configName}) }}">show</a>
+                    <a href="{{ path('parameters_edit', {'configName': parameter.configName}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('parameters_new') }}">Create new</a>
+{% endblock %}
